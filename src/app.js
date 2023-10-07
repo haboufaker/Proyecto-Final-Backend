@@ -36,14 +36,14 @@ app.set('views', 'views/');
 app.use(express.static('public'));
 
 // Middleware cookies parser
-app.use(cookieParser(enviroment.COOKIE_PARSER_KEY));
+app.use(cookieParser(process.env.COOKIE_PARSER_KEY));
 
 // Session
 app.use(
 	session({
 		store: MongoStore.create({
 			mongoUrl:
-				enviroment.DB_URL,
+				process.env.DB_URL,
 			mongoOptions: {
 				useNewUrlParser: true,
 			},
@@ -63,7 +63,7 @@ app.use(loggerMiddleware);
 
 
 //MongoDB database
-mongoose.connect(enviroment.DB_CREDENTIALS);
+mongoose.connect(process.env.DB_CREDENTIALS);
 
 //Swagger API Dcoumentation
 const swaggerOptions = {
@@ -125,8 +125,8 @@ app.get('/loggertTest', (req, res) => {
 });
 
 //Listening to port 8080
-const webServer = app.listen(enviroment.PORT, () => {
-	console.log(`Listening on port ${enviroment.PORT}`);
+const webServer = app.listen(process.env.PORT, () => {
+	console.log(`Listening on port ${process.env.PORT}`);
 });
 
 // socket.io init

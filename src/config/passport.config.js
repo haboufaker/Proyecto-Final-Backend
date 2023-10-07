@@ -18,7 +18,7 @@ const initializePassport = () => {
 
 				try {
 
-                    if (username === enviroment.ADMIN_USER) {
+                    if (username === process.env.ADMIN_USER) {
                         return done(null, false, {
                             message: 'Ivalid credentials',
                         });
@@ -69,12 +69,12 @@ const initializePassport = () => {
 			{ usernameField: 'email' },
 			async (username, password, done) => {
 				try {
-                    if (username === enviroment.ADMIN_USER && password === enviroment.ADMIN_PASS) {
+                    if (username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS) {
                         const user = {
                             first_name: "Coder",
                             last_name: "House",
-                            email: enviroment.ADMIN_USER,
-                            password: enviroment.ADMIN_PASS,
+                            email: process.env.ADMIN_USER,
+                            password: process.env.ADMIN_PASS,
                             age: 99,
                             role: "admin",
 							cart: null,
@@ -83,7 +83,7 @@ const initializePassport = () => {
 
 
 			            return done(null, user);
-                    } else if (username === enviroment.ADMIN_USER && password !== enviroment.ADMIN_PASS) {
+                    } else if (username === process.env.ADMIN_USER && password !== process.env.ADMIN_PASS) {
                         return done(null, false, {
                             message: 'Invalid data',
                         });
@@ -112,9 +112,9 @@ const initializePassport = () => {
 		'github',
 		new GitHubStrategy(
 			{
-				clientID: enviroment.CLIENT_ID,
-				clientSecret: enviroment.CLIENT_SECRET,
-				callbackURL: enviroment.CALLBACK_URL
+				clientID: process.env.CLIENT_ID,
+				clientSecret: process.env.CLIENT_SECRET,
+				callbackURL: process.env.CALLBACK_URL
 			},
 			async (res, accessToken, refreshToken, profile, done) => {
 				try {

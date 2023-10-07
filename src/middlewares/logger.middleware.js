@@ -30,7 +30,7 @@ let logger = winston.createLogger({
     ],
 });
 
-if (enviroment.ENVIROMENT === 'development') {
+if (process.env.ENVIROMENT === 'development') {
     logger = winston.createLogger({
         levels: customLevels.levels,
         transports: [

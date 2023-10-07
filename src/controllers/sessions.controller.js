@@ -9,8 +9,8 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     port: 587,
     auth: {
-        user: enviroment.EMAIL,
-        pass: enviroment.EMAIL_PASSWORD,
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
     },
 });
 
@@ -59,7 +59,7 @@ export const forgotPassword = async (req, res) => {
 	req.logger.debug(`Este es el resetToken en sessions.controller.js ${resetToken}`)
 
     if (resetToken) {
-        const resetLink = `http://localhost:${enviroment.PORT}/passwordReset?resetToken=${resetToken}`;
+        const resetLink = `http://localhost:${process.env.PORT}/passwordReset?resetToken=${resetToken}`;
 
         const mailOptions = {
 			from: 'haboufaker@gmail.com',
@@ -300,7 +300,7 @@ export const clearInactiveUsers = async (req, res) => {
         for (const user of usersToDelete) {
             // Send email notifications to deleted users
             const mailOptions = {
-                from: `Coderhouse Test <${enviroment.EMAIL}>`,
+                from: `Coderhouse Test <${process.env.EMAIL}>`,
                 to: user.email,
                 subject: 'Account Deletion Notification',
                 text: `Dear ${user.first_name},\n\nYour account has been deleted due to inactivity. If you wish to reactivate your account, please contact our support team.\n\nSincerely, The backend ecommerce Team`,

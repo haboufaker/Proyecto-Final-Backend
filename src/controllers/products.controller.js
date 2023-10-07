@@ -15,8 +15,8 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     port: 587,
     auth: {
-        user: enviroment.EMAIL,
-        pass: enviroment.EMAIL_PASSWORD,
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
     },
 });
 
@@ -165,7 +165,7 @@ export const deleteProduct =async (req, res) => {
 			if (productOwner.role === 'premium') {
 
 				const mailOptions = {
-					from: `Coderhouse Test <${enviroment.EMAIL}>`,
+					from: `Coderhouse Test <${process.env.EMAIL}>`,
 					to: productOwner.email,
 					subject: 'Product Deleted Notification',
 					text: `Dear ${productOwner.first_name},\n\nThis email is to notify that the product: <${productEmail.title}> has been succesfully deleted. \n\nSincerely, The backend ecommerce Team`,

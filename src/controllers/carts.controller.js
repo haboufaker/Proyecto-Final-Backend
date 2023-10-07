@@ -9,8 +9,8 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     port: 587,
     auth: {
-        user: enviroment.EMAIL,
-        pass: enviroment.EMAIL_PASSWORD,
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
     },
 });
 
@@ -275,7 +275,7 @@ export const purchase = async (req, res) => {
 			return res.status(501).json({ status: "error", payload: order });
 		}
 
-		fetch(`http://localhost:${enviroment.PORT}/api/carts/mail/${resolvedTicket._id}`, {
+		fetch(`http://localhost:${process.env.PORT}/api/carts/mail/${resolvedTicket._id}`, {
 			method: "GET",
 		})
 
@@ -292,7 +292,7 @@ export const mail = async (req, res) => {
 	const ticket = await ticketService.getTicketById(tid)
 	const user = await userService.getByEmail(ticket.purchaser)
 	const mailOptions = {
-        from: `Coderhouse Test <${enviroment.EMAIL}>`,
+        from: `Coderhouse Test <${process.env.EMAIL}>`,
         to: ticket.purchaser,
         subject: 'Thank you for your purchase!',
         html: `<h1>Hey ${user.first_name}! Your order #${ticket.code} has been succesfully placed for a total amount of $${ticket.amount} on ${ticket.purchase_datetime}</h1>`,

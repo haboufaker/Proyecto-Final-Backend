@@ -45,7 +45,7 @@ sessionsRouter.post(
 
 		req.session.user = user;
 
-		if (user.email === enviroment.ADMIN_USER) {
+		if (user.email === process.env.ADMIN_USER) {
 			req.session.admin = true
 		}
 
